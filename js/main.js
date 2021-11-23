@@ -54,3 +54,17 @@ const renderData = (data) => {
   getELE("todo").innerHTML = todo;
   getELE("completed").innerHTML = completed;
 }
+
+//Add task
+const addTaskToApi = () => {
+  let taskName = getELE("newTask").value;
+  let taskStatus = 'todo';
+  const newTask = new Task('',taskName, taskStatus);
+  taskService.addTask(newTask)
+    .then((result) =>{
+      console.log(result);
+      getTaskApi();
+    })
+    .catch((error) => console.error(error));
+}
+window.addTaskToApi = addTaskToApi;
