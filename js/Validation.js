@@ -7,7 +7,7 @@ export default class Validation {
     return true;
   }
   checkFormat (value, message) {
-    let pattern = /^[a-zA-Z0-9,.].{3,12}$/
+    let pattern = /^[a-zA-Z0-9_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\s].{2,10}$/
     if (!value.match(pattern)) {
       alert(message);
       return false;

@@ -61,12 +61,14 @@ const addTaskToApi = () => {
   let taskName = getELE("newTask").value;
   let taskStatus = 'todo';
   let isValid = true;
-  isValid &= validation.checkEmpty(taskName, 'Task cannot be empty') && validation.checkFormat(taskName, 'Task must have from 3 to 12 characters');
+  isValid &= validation.checkEmpty(taskName, 'Task cannot be empty') && validation.checkFormat(taskName, 'Task is not correct format');
   if (isValid) {
     const newTask = new Task('',taskName, taskStatus);
     taskService.addTask(newTask)
       .then((result) =>{
         console.log(result);
+        alert('Task added successfully');
+        getELE("newTask").value = '';
         getTaskApi();
       })
       .catch((error) => console.error(error));
