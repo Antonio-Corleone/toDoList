@@ -24,7 +24,7 @@ const renderData = (data) => {
       completed += 
       `<li>
         <span>${task.textTask}</span>
-        <div class="buttons">
+        <div class="buttons" onclick="deleteTaskApi(${task.id})">
           <button class="remove">
             <i class="fa fa-trash-alt"></i>
           </button>
@@ -40,7 +40,7 @@ const renderData = (data) => {
       `<li>
         <span>${task.textTask}</span>
         <div class="buttons">
-          <button class="remove">
+          <button class="remove" onclick="deleteTaskApi(${task.id})">
             <i class="fa fa-trash-alt"></i>
           </button>
           <button class="complete">
@@ -68,3 +68,15 @@ const addTaskToApi = () => {
     .catch((error) => console.error(error));
 }
 window.addTaskToApi = addTaskToApi;
+
+//Delete a task
+const deleteTaskApi = (id) => {
+  taskService.deleteTask(id)
+    .then((result) => {
+      console.log(result);
+      alert('Task deleted successfully');
+      getTaskApi();
+    })
+    .catch((error) => console.error(error));
+}
+window.deleteTaskApi = deleteTaskApi;
