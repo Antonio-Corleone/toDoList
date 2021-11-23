@@ -24,11 +24,11 @@ const renderData = (data) => {
       completed += 
       `<li>
         <span>${task.textTask}</span>
-        <div class="buttons" onclick="deleteTaskApi(${task.id})">
-          <button class="remove">
+        <div class="buttons">
+          <button class="remove" onclick="deleteTaskApi(${task.id})">
             <i class="fa fa-trash-alt"></i>
           </button>
-          <button class="complete">
+          <button class="complete" onclick="updateTaskApi(${task.id})">
             <i class="far fa-check-circle"></i>
             <i class="fas fa-check-circle"></i>
           </button>
@@ -43,7 +43,7 @@ const renderData = (data) => {
           <button class="remove" onclick="deleteTaskApi(${task.id})">
             <i class="fa fa-trash-alt"></i>
           </button>
-          <button class="complete">
+          <button class="complete" onclick="updateTaskApi(${task.id})">
             <i class="far fa-check-circle"></i>
             <i class="fas fa-check-circle"></i>
           </button>
@@ -80,3 +80,22 @@ const deleteTaskApi = (id) => {
     .catch((error) => console.error(error));
 }
 window.deleteTaskApi = deleteTaskApi;
+//Update a task
+const updateTaskApi = (id) => {
+  taskService.getTaskById(id)
+  .then(result => {
+    console.log(result);
+    (result.data.status === 'todo') ? result.data.status = 'completed' : result.data.status = 'todo';
+    const updateTask = new Task(id, result.data.textTask, result.data.status);
+    console.log(updateTask);
+    taskService.updateTask(updateTask)
+      .then((result) => {
+        console.log(result);
+        alert('Task updated successfully');
+        getTaskApi();
+      })
+      .catch((error) => console.log(error))
+  })
+  .catch(error => console.error(error))
+}
+window.updateTaskApi = updateTaskApi;
