@@ -20,7 +20,7 @@ getTaskApi();
 const renderData = (data) => {
   let completed = '';
   let todo = '';
-  data.forEach((task) => {
+  data?.forEach((task) => {
     if (task.status === 'completed') {
       completed += 
       `<li>
@@ -61,7 +61,7 @@ const addTaskToApi = () => {
   let taskName = getELE("newTask").value;
   let taskStatus = 'todo';
   let isValid = true;
-  isValid &= validation.checkEmpty(taskName, 'Task cannot be empty') && validation.checkFormat(taskName, 'Task is not correct format');
+  isValid &= validation.checkEmpty(taskName, 'Task cannot be empty') && validation.checkFormat(taskName, 'Task has at least 3 and maximum 10 characters');
   if (isValid) {
     const newTask = new Task('',taskName, taskStatus);
     taskService.addTask(newTask)
