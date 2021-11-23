@@ -9,7 +9,7 @@ const getELE = (id) => document.getElementById(id);
 const getTaskApi = () => {
   taskService.getListTasks()
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       renderData(result.data);
     })
     .catch((error) => console.log(error))
@@ -66,7 +66,7 @@ const addTaskToApi = () => {
     const newTask = new Task('',taskName, taskStatus);
     taskService.addTask(newTask)
       .then((result) =>{
-        console.log(result);
+        // console.log(result);
         alert('Task added successfully');
         getELE("newTask").value = '';
         getTaskApi();
@@ -80,7 +80,7 @@ window.addTaskToApi = addTaskToApi;
 const deleteTaskApi = (id) => {
   taskService.deleteTask(id)
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       alert('Task deleted successfully');
       getTaskApi();
     })
@@ -91,12 +91,12 @@ window.deleteTaskApi = deleteTaskApi;
 const updateTaskApi = (id) => {
   taskService.getTaskById(id)
   .then(result => {
-    console.log(JSON.parse(JSON.stringify(result)));
+    // console.log(JSON.parse(JSON.stringify(result)));
     (result.data.status === 'todo') ? result.data.status = 'completed' : result.data.status = 'todo';
     const updateTask = new Task(id, result.data.textTask, result.data.status);
     taskService.updateTask(updateTask)
       .then((result) => {
-        console.log(JSON.parse(JSON.stringify(result)));
+        // console.log(JSON.parse(JSON.stringify(result)));
         alert('Task updated successfully');
         getTaskApi();
       })
