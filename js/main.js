@@ -1,7 +1,8 @@
 import Task from "./Task.js";
 import TaskService from "./TaskService.js";
+import Validation from "./Validation.js";
 const taskService = new TaskService();
-
+const validation = new Validation();
 const getELE = (id) => document.getElementById(id);
 
 // Get list tasks from API
@@ -59,13 +60,17 @@ const renderData = (data) => {
 const addTaskToApi = () => {
   let taskName = getELE("newTask").value;
   let taskStatus = 'todo';
-  const newTask = new Task('',taskName, taskStatus);
-  taskService.addTask(newTask)
-    .then((result) =>{
-      console.log(result);
-      getTaskApi();
-    })
-    .catch((error) => console.error(error));
+  let isValid = true;
+  isValid &= validation.checkEmpty(taskName, 'Task cannot be empty') && validation.checkFormat(taskName, 'Task must have from 3 to 12 characters');
+  if (isValid) {
+    const newTask = new Task('',taskName, taskStatus);
+    taskService.addTask(newTask)
+      .then((result) =>{
+        console.log(result);
+        getTaskApi();
+      })
+      .catch((error) => console.error(error));
+  }
 }
 window.addTaskToApi = addTaskToApi;
 
@@ -84,13 +89,12 @@ window.deleteTaskApi = deleteTaskApi;
 const updateTaskApi = (id) => {
   taskService.getTaskById(id)
   .then(result => {
-    console.log(result);
+    console.log(JSON.parse(JSON.stringify(result)));
     (result.data.status === 'todo') ? result.data.status = 'completed' : result.data.status = 'todo';
     const updateTask = new Task(id, result.data.textTask, result.data.status);
-    console.log(updateTask);
     taskService.updateTask(updateTask)
       .then((result) => {
-        console.log(result);
+        console.log(JSON.parse(JSON.stringify(result)));
         alert('Task updated successfully');
         getTaskApi();
       })
