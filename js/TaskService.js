@@ -24,7 +24,7 @@ export default class TaskService {
       method: 'GET'
     });
   };
-  updateTak(task) {
+  updateTask(task) {
     return axios({
       url: `https://6183caea91d76c00172d1b5f.mockapi.io/api/todo/${task.id}`,
       method: 'PUT',
