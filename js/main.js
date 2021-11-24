@@ -82,6 +82,10 @@ const addTaskToApi = () => {
         getTaskApi();
       })
       .catch((error) => console.error(error));
+  }else{
+    isLoading = false;
+    checkLoading();
+    isLoading = true;
   }
 }
 window.addTaskToApi = addTaskToApi;
