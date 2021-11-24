@@ -5,7 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>ToDoList</title>
+    <style>
+      .loader {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+      }
+      .loader::before {
+        content: "";
+        position: absolute;
+        border: 10px solid #e2e2e2;
+        border-radius: 50%;
+        border-top: 10px solid #3498db;
+        width: 80px;
+        height: 80px;
+        -webkit-animation: spin 1.5s linear infinite;
+        animation: spin 1.5s linear infinite;
+      }
 
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% {
+          -webkit-transform: rotate(0deg);
+        }
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
     <link
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap"
       rel="stylesheet"
@@ -23,8 +63,8 @@
       <div class="card__header">
         <img src="./img/X2oObC4.png" />
       </div>
-      <!-- <h2>hello!</h2> -->
       <div class="card__body">
+        <div id="myClass"></div>
         <div class="card__content">
           <div class="card__title">
             <h2>My Tasks</h2>
