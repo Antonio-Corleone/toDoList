@@ -3,16 +3,25 @@ import TaskService from "./TaskService.js";
 import Validation from "./Validation.js";
 const taskService = new TaskService();
 const validation = new Validation();
+let  isLoading = true;
 const getELE = (id) => document.getElementById(id);
-
+const checkLoading = () => (isLoading) ? getELE("myClass").classList.add('loader') : getELE("myClass").classList.remove('loader');
+checkLoading();
 // Get list tasks from API
 const getTaskApi = () => {
   taskService.getListTasks()
     .then((result) => {
       // console.log(result);
       renderData(result.data);
+      isLoading = false;
+      checkLoading();
+      isLoading = true;
     })
-    .catch((error) => console.log(error))
+    .catch((error) => {
+      console.log(error);
+      isLoading = true;
+      checkLoading();
+    })
 }
 getTaskApi();
 
@@ -58,6 +67,7 @@ const renderData = (data) => {
 
 //Add task
 const addTaskToApi = () => {
+  checkLoading();
   let taskName = getELE("newTask").value;
   let taskStatus = 'todo';
   let isValid = true;
@@ -78,6 +88,7 @@ window.addTaskToApi = addTaskToApi;
 
 //Delete a task
 const deleteTaskApi = (id) => {
+  checkLoading();
   taskService.deleteTask(id)
     .then((result) => {
       // console.log(result);
@@ -89,6 +100,7 @@ const deleteTaskApi = (id) => {
 window.deleteTaskApi = deleteTaskApi;
 //Update a task
 const updateTaskApi = (id) => {
+  checkLoading();
   taskService.getTaskById(id)
   .then(result => {
     // console.log(JSON.parse(JSON.stringify(result)));
